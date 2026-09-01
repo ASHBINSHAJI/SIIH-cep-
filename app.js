@@ -54,7 +54,7 @@ app.use(function(err, req, res, next) {
 db.connect((err)=>{
   if(err){
     console.log("Database connection failed");
-    return;
+process.exit(1);
     
   }
   console.log("Database Connected");
