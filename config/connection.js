@@ -1,41 +1,32 @@
-const { MongoClient } = require('mongodb');
-require('dotenv').config();
+const { MongoClient } = require("mongodb");
+require("dotenv").config();
 
 const state = {
-    db: null,
-    client: null
+  db: null
 };
 
-module.exports.connect = function (done) {
-    const dbPassword = process.env.DB_PASSWORD;
+module.exports.connect = function(done) {
+  const url = process.env.MONGODB_URI;
 
-    if (!dbPassword) {
-        console.log("DB_PASSWORD is missing");
-        return done(new Error("DB_PASSWORD is missing"));
-    }
+  if (!url) {
+    console.log("MONGODB_URI is missing");
+    return done(new Error("MONGODB_URI is missing"));
+  }
 
-    const url = process.env.MONGODB_URI;
+  console.log("Trying to connect...");
 
-    console.log("Trying to connect..");
-
-    MongoClient.connect(url)
-        .then((client) => {
-            console.log("mongodb connected");
-
-            state.client = client;
-            state.db = client.db("cep");
-
-            console.log("Database Connected");
-
-            done(null);
-        })
-        .catch((err) => {
-            console.log("mongo Connection err");
-            console.log("dberror", err);
-            done(err);
-        });
+  MongoClient.connect(url)
+    .then((client) => {
+      console.log("mongodb connected");
+      state.db = client.db("cep");
+      done();
+    })
+    .catch((err) => {
+      console.log("mongo Connection err", err);
+      done(err);
+    });
 };
 
-module.exports.get = function () {
-    return state.db;
+module.exports.get = function() {
+  return state.db;
 };
