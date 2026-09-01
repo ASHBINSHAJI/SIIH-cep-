@@ -1,0 +1,388 @@
+<section class="dashboard-section">
+{{#each teams}}
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="dashboard-header dashboard-reveal">
+
+            <div>
+                <span class="dashboard-eyebrow">TEAM DASHBOARD</span>
+
+                <h1>
+                    Welcome,
+                    <span class="text-primary">{{lName}}</span>
+                </h1>
+
+                <p>
+                    Manage your team, track assignments and submit your work.
+                </p>
+            </div>
+
+            <div class="team-badge">
+                <span class="status-dot"></span>
+                {{tName}}
+            </div>
+
+        </div>
+
+
+        <!-- TEAM INFO -->
+        <div class="dashboard-card dashboard-reveal">
+
+            <div class="section-heading">
+                <div>
+                    <span class="section-number">01</span>
+                    <h2>Team Information</h2>
+                </div>
+            </div>
+
+            <div class="leader-grid">
+
+                <div class="info-box">
+                    <span>TEAM LEADER</span>
+                    <h3>{{lName}}</h3>
+                    <p>Team Leader</p>
+                </div>
+
+                <div class="info-box">
+                    <span>EMAIL</span>
+                    <h3>{{lEmail}}</h3>
+                    <p>Primary contact</p>
+                </div>
+
+                <div class="info-box">
+                    <span>TEAM ID</span>
+                    <h3>#TEAM-024</h3>
+                    <p>Registered team</p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- MEMBERS -->
+        <div class="dashboard-card dashboard-reveal">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-number">02</span>
+                    <h2>Team Members</h2>
+                </div>
+
+                <div class="slider-controls">
+
+                    <button id="prevBtn" class="slider-btn">
+                        &#10094;
+                    </button>
+
+                    <button id="nextBtn" class="slider-btn">
+                        &#10095;
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="members-container">
+
+                <div class="members-slider" id="membersSlider">
+
+                    <div class="member-card">
+                        <div class="member-top">
+                            <span class="member-index">01</span>
+                            <span class="member-role">LEADER</span>
+                        </div>
+
+
+                        <h3>{{m1Name}}</h3>
+                        <p>{{m1Email}}</p>
+                    </div>
+
+
+                    <div class="member-card">
+                        <div class="member-top">
+                            <span class="member-index">02</span>
+                            <span class="member-role">MEMBER</span>
+                        </div>
+
+    
+                        <h3>{{m2Name}}</h3>
+                        <p>{{m2Email}}</p>
+                    </div>
+
+
+                    <div class="member-card">
+                        <div class="member-top">
+                            <span class="member-index">03</span>
+                            <span class="member-role">MEMBER</span>
+                        </div>
+
+
+                        <h3>{{mr3Name}}</h3>
+                        <p>{{m3Email}}</p>
+                    </div>
+
+
+                    <div class="member-card">
+                        <div class="member-top">
+                            <span class="member-index">04</span>
+                            <span class="member-role">MEMBER</span>
+                        </div>
+                        <h3>{{m4Name}}</h3>
+                        <p>{{m4Email}}</p>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+            <div class="slider-progress">
+                <span id="sliderProgress"></span>
+            </div>
+
+        </div>
+
+
+        <!-- ASSIGNED TASK -->
+        <div class="dashboard-card task-card dashboard-reveal">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-number">03</span>
+                    <h2>Assigned Task</h2>
+                </div>
+
+                <span class="task-status">
+                    <span></span>
+                    Active
+                </span>
+
+            </div>
+
+{{#each admtask}}
+            <div class="task-content">
+
+                <div class="task-main">
+
+                    <span class="task-category">
+                        Create 
+                    </span>
+
+                    <h2>
+                       {{this.head}}
+                    </h2>
+
+                    <p>
+                        {{this.message}}
+                    </p>
+
+                </div>
+
+
+                <div class="task-details">
+
+                    <div>
+                        <span>DEADLINE</span>
+                        <strong>{{this.date}}</strong>
+                    </div>
+
+                    <div>
+                        <span>DIFFICULTY</span>
+                        <strong>{{this.diff}}</strong>
+                    </div>
+
+                    <div>
+                        <span>SUBMISSION</span>
+                        <strong>{{this.projectLink}}</strong>
+                    </div>
+
+                </div>
+
+            </div>
+{{/each}}
+
+            <div class="task-footer">
+
+                <div>
+                    <span class="progress-label">
+                        Task Progress
+                    </span>
+
+                    <div class="progress-bar">
+                        <div class="progress-value"></div>
+                    </div>
+                </div>
+
+                <strong class="progress-percent">
+                    35%
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- SUBMISSION -->
+        <div class="dashboard-card dashboard-reveal">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-number">04</span>
+                    <h2>Submit Your Work</h2>
+                </div>
+
+            </div>
+
+            <p class="submission-text">
+                Once your task is completed, send a short message
+                and your project link to the admin.
+            </p>
+
+
+            <form action="/submit-task" method="POST">
+
+                <div class="form-group">
+
+                    <label for="message"style="color: aliceblue;">
+                        Message to Admin
+                    </label>
+
+                    <textarea
+                        id="message"
+                        name="message"
+                        rows="4"
+                        placeholder="Write your message..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="projectLink" style="color: aliceblue;">
+                        Project Link
+                    </label>
+
+                    <input
+                        type="url"
+                        id="projectLink"
+                        name="projectLink"
+                        placeholder="https://github.com/username/project"
+                        required
+                    >
+
+                </div>
+
+
+                <button type="submit" class="submit-btn">
+                    Submit Work
+                    <span>→</span>
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+    <footer class="hack-footer " style="margin-bottom: -70px;">
+
+    <!-- Animated background -->
+    <div class="footer-grid"></div>
+    <div class="footer-glow"></div>
+
+    <div class="container position-relative mb-6">
+
+        <!-- Big CTA -->
+        <div class="footer-top">
+
+            <div>
+                <span class="footer-eyebrow">
+                    SIIH 2.0 · 2026
+                </span>
+
+                <h2>
+                    Think.
+                    <span>Build.</span>
+                    Solve.
+                </h2>
+
+                <p>
+                    Turn your idea into something that matters.
+                </p>
+            </div>
+
+            <a href="/login" class="footer-register">
+              Team Login
+                <i class="bi bi-arrow-up-right"></i>
+            </a>
+
+        </div>
+
+
+        <!-- Navigation -->
+        <div class="footer-middle">
+
+            <div class="footer-brand">
+
+                <div class="footer-mark">
+                    S
+                </div>
+
+                <div>
+                    <strong>SIIH 2.0</strong>
+                    <small>INTERNAL HACKATHON 2026</small>
+                </div>
+
+            </div>
+
+
+            <div class="footer-nav">
+
+                <a href="/">Home</a>
+
+                <a href="/dashboardlogin">Dashboard</a>
+
+                <a href="/login">
+                    Team Login
+                </a>
+
+                <a href="/#contact">
+                    Contact
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- Bottom -->
+        <div class="footer-bottom">
+
+<div class="developer-credit" >
+    <a href="https://www.linkedin.com/in/ashbin-shaji" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+
+           <span>Developed by</span>
+    <span class="developer-name">Ashbin Shaji</span>
+<i class="bi bi-linkden"></i>
+    </a>
+ </div>
+
+            <span class="footer-status">
+                <i></i>
+                REGISTRATION SYSTEM ONLINE
+            </span>
+
+            <span>
+                Built for innovators.
+            </span>
+
+        </div>
+
+    </div>
+
+</footer>
+
+</section>

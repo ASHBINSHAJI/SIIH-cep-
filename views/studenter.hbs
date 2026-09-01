@@ -1,0 +1,48 @@
+
+<section class="team-login-section">
+
+    <div class="team-login-card">
+
+        <div class="login-header">
+            <h1>Team Dashboard</h1>
+            <p>Enter your team credentials to continue.</p>
+        </div>
+
+        <form action="/login" method="POST">
+
+            <div class="form-group">
+                <label for="teamid">Team ID</label>
+                <input
+                    type="text"
+                    id="teamid"
+                    name="teamid"
+                    placeholder="Enter your Team ID"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your Password"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="login-btn">
+                <i class="bi bi-box-arrow-in-right me-2"></i>
+                Enter Dashboard
+            </button>
+
+        </form>
+        <p class="login-note">
+            Use the Team ID and Password provided after your team was approved.
+        </p>
+
+    </div>
+
+</section>
+

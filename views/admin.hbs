@@ -1,0 +1,181 @@
+<section class="admin-panel mx-3 mt-5">
+
+    <div class="container">
+
+        <!-- Admin Header -->
+        <div class="admin-header mb-4">
+            <h1>
+                Welcome, <span class="text-primary">Admin</span>
+            </h1>
+            <p class="text-secondary">
+                Manage registered teams and review submitted work.
+            </p>
+        </div>
+
+
+        <!-- Registered Teams -->
+        <div class="admin-card mb-5">
+
+            <div class="card-header-custom">
+                <div>
+                    <h2>Registered Teams</h2>
+                    <p>List of teams participating in the hackathon.</p>
+                </div>
+
+                <span class="team-count">
+                    {{teams.length}} Teams
+                </span>
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="table table-admin align-middle">
+
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Leader Name</th>
+                            <th>Leader Email</th>
+                            <th>Member Name</th>
+                            <th>Member Email</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {{#each teams}}
+
+                        <tr>
+                            <td>{{@index}}</td>
+
+                            <td>
+                                <strong>{{lName}}</strong>
+                            </td>
+
+                            <td>
+                                <a href="mailto:{{lEmail}}">
+                                    {{lEmail}}
+                                </a>
+                            </td>
+
+                            <td>
+                                {{m1Name}}
+                            </td>
+
+                            <td>
+                                <a href="mailto:{{m1Email}}">
+                                    {{m1Email}}
+                                </a>
+                            </td>
+                        </tr>
+
+                        {{else}}
+
+                        <tr>
+                            <td colspan="5" class="text-center py-4">
+                                No teams registered yet.
+                            </td>
+                        </tr>
+
+                        {{/each}}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Student Submissions -->
+        <div class="admin-card">
+
+            <div class="card-header-custom">
+                <div>
+                    <h2>Student Work</h2>
+                    <p>Review submitted projects from participating teams.</p>
+                </div>
+
+                <span class="team-count">
+                    {{studwork.length}} Submissions
+                </span>
+            </div>
+
+
+            <div class="submission-list">
+
+                {{#each studwork}}
+
+                <div class="submission-item">
+
+                    <div class="submission-top">
+
+                        <div>
+                            <span class="label">Team ID</span>
+                            <h3>{{this.teamid}}</h3>
+                        </div>
+
+                        <div class="status">
+                            {{this.status}}
+                        </div>
+
+                    </div>
+
+
+                    <div class="submission-message">
+
+                        <span class="label">Message</span>
+
+                        <p>
+                            {{this.message}}
+                        </p>
+
+                    </div>
+
+
+                    <div class="submission-footer">
+
+                        <div>
+                            <span class="label">Submitted At</span>
+                            <p>{{this.submittedAt}}</p>
+                        </div>
+
+                        <div>
+                            <span class="label">Project</span>
+
+                            <a
+                                href="{{this.projectLink}}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="project-link"
+                            >
+                                View Project →
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {{else}}
+
+                <div class="empty-state">
+                    <h3>No submissions yet</h3>
+                    <p>
+                        Student project submissions will appear here.
+                    </p>
+                </div>
+
+                {{/each}}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+

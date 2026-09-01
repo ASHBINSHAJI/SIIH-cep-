@@ -1,0 +1,72 @@
+    <!-- SUBMISSION -->
+    <section style="color: aliceblue;">
+        <div class="container mt-5">
+        <div class="dashboard-card dashboard-reveal">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-number"></span>
+                    <h2>Give<span class="text-primary"> Task</span></h2>
+                </div>
+
+            </div>
+
+            <p class="submission-text">
+                Once your Gave task , It will sent To the Students.
+            </p>
+
+
+            <form action="/Gave-task" method="POST" style="color: aliceblue;">
+
+                <div class="form-group">
+                    <label for="text" style="color: aliceblue;">Heading:</label>
+                 <input type="text" name="head">
+
+                    <label for="message" style="color: aliceblue;">
+                        Message to Student
+                    </label>
+
+                    <textarea
+                        id="message"
+                        name="message"
+                        rows="4"
+                        placeholder="Write your message..."
+                        required
+                    ></textarea>
+
+                </div>
+<label for="date">DeadLine</label>
+<input type="Date" name="date"> <br> <br>
+<label for="text">Difficulty</label>
+<input type="text" placeholder="intermediate" name="diff">
+
+                <div class="form-group">
+
+                    <label for="projectLink" style="color: aliceblue;">
+                        Project Link
+                    </label>
+
+                    <input
+                        type="url"
+                        id="projectLink"
+                        name="projectLink"
+                        placeholder="https://github.com/username/project"
+                        required
+                    >
+
+
+                </div>
+
+
+                <button type="submit" class="submit-btn">
+                    Sent
+                    <span>→</span>
+                </button>
+
+            </form>
+
+        </div>
+
+    </div></div>
+    </section>
