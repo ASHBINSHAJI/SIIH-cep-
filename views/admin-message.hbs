@@ -1,0 +1,95 @@
+<section class="dashboard-section">
+
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="dashboard-header dashboard-reveal">
+
+            <div>
+                <span class="dashboard-eyebrow">ADMIN PANEL</span>
+
+                <h1>
+                    Send Message to
+                    <span class="text-primary">Team</span>
+                </h1>
+
+                <p>
+                    Send announcements or updates to specific teams.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- MESSAGE FORM -->
+        <div class="dashboard-card dashboard-reveal">
+
+            <div class="section-heading">
+                <div>
+                    <span class="section-number">01</span>
+                    <h2>Send Message</h2>
+                </div>
+
+                <div>
+                    <a href="/admin" class="btn btn-secondary">Back to Admin</a>
+                </div>
+            </div>
+
+            {{#if error}}
+                <div class="alert alert-danger" style="padding: 1rem; background: #3d0000; border: 1px solid #f44336; border-radius: 8px; color: #ff9999; margin-bottom: 1rem;">
+                    {{error}}
+                </div>
+            {{/if}}
+
+            {{#if success}}
+                <div class="alert alert-success" style="padding: 1rem; background: #003d00; border: 1px solid #4caf50; border-radius: 8px; color: #99ff99; margin-bottom: 1rem;">
+                    ✓ {{success}}
+                </div>
+            {{/if}}
+
+            <form action="/admin/send-message" method="POST">
+
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label for="teamId" style="color: aliceblue; display: block; margin-bottom: 0.5rem;">
+                        Select Team
+                    </label>
+
+                    <select
+                        id="teamId"
+                        name="teamId"
+                        required
+                        style="width: 100%; padding: 0.75rem; background: #171824; color: #e0e0e0; border: 1px solid #292a36; border-radius: 6px; font-size: 1rem;"
+                    >
+                        <option value="">-- Select a team --</option>
+                        {{#each teams}}
+                            <option value="{{this.teamId}}">{{this.teamId}}{{#if this.teamName}} - {{this.teamName}}{{/if}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label for="message" style="color: aliceblue; display: block; margin-bottom: 0.5rem;">
+                        Message
+                    </label>
+
+                    <textarea
+                        id="message"
+                        name="message"
+                        rows="6"
+                        placeholder="Write your message to the team..."
+                        required
+                        style="width: 100%; padding: 0.75rem; background: #171824; color: #e0e0e0; border: 1px solid #292a36; border-radius: 6px; font-family: Arial, sans-serif; font-size: 1rem;"
+                    ></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn" style="padding: 0.75rem 2rem;">
+                    Send Message
+                    <span>→</span>
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>

@@ -1,0 +1,74 @@
+<section class="dashboard-section">
+
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="dashboard-header dashboard-reveal">
+
+            <div>
+                <span class="dashboard-eyebrow">COORDINATOR PANEL</span>
+
+                <h1>
+                    Team Login
+                    <span class="text-primary">Activity</span>
+                </h1>
+
+                <p>
+                    Monitor team logins for your assigned teams.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- LOGIN ACTIVITY -->
+        <div class="dashboard-card dashboard-reveal">
+
+            <div class="section-heading">
+                <div>
+                    <span class="section-number">01</span>
+                    <h2>Recent Login Activity - Your Teams</h2>
+                </div>
+
+                <div>
+                    <a href="/coordinator/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+                </div>
+            </div>
+
+            {{#if activity}}
+                <div class="table-responsive">
+                    <table class="table" style="width: 100%; border-collapse: collapse; color: #e0e0e0;">
+                        <thead style="background: #0f3460;">
+                            <tr>
+                                <th style="padding: 1rem; text-align: left; color: #e0e0e0; font-weight: 600; border-bottom: 2px solid #16213e;">Team ID</th>
+                                <th style="padding: 1rem; text-align: left; color: #e0e0e0; font-weight: 600; border-bottom: 2px solid #16213e;">Team Name</th>
+                                <th style="padding: 1rem; text-align: left; color: #e0e0e0; font-weight: 600; border-bottom: 2px solid #16213e;">Leader</th>
+                                <th style="padding: 1rem; text-align: left; color: #e0e0e0; font-weight: 600; border-bottom: 2px solid #16213e;">Login Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each activity}}
+                            <tr style="background: #1a1a2e; border-bottom: 1px solid #16213e;">
+                                <td style="padding: 1rem;">
+                                    <strong style="color: #3f36e7;">{{this.teamId}}</strong>
+                                </td>
+                                <td style="padding: 1rem; color: #b0b0b0;">{{this.teamName}}</td>
+                                <td style="padding: 1rem; color: #b0b0b0;">{{this.leaderName}}</td>
+                                <td style="padding: 1rem; color: #999ba8;">
+                                    {{dateFormat this.loginAt "MMM DD, h:MM A"}}
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            {{else}}
+                <div class="alert alert-info" style="color: #999ba8; padding: 1.5rem;">
+                    <p>No login activity recorded yet for your assigned teams.</p>
+                </div>
+            {{/if}}
+
+        </div>
+
+    </div>
+
+</section>

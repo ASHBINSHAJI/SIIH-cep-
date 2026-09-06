@@ -13,54 +13,95 @@
             </div>
 
             <p class="submission-text">
-                Once your Gave task , It will sent To the Students.
+                Select a team and send a project task. Only the selected team will see it on their dashboard.
             </p>
 
+            {{#if success}}
+                <div class="alert alert-success" style="padding: 1rem; background: #003d00; border: 1px solid #4caf50; border-radius: 8px; color: #99ff99; margin-bottom: 1rem;">
+                    ✓ {{success}}
+                </div>
+            {{/if}}
+
+            {{#if error}}
+                <div class="alert alert-danger" style="padding: 1rem; background: #3d0000; border: 1px solid #f44336; border-radius: 8px; color: #ff9999; margin-bottom: 1rem;">
+                    {{error}}
+                </div>
+            {{/if}}
 
             <form action="/Gave-task" method="POST" style="color: aliceblue;">
 
-                <div class="form-group">
-                    <label for="text" style="color: aliceblue;">Heading:</label>
-                 <input type="text" name="head">
+                <!-- TEAM SELECTOR -->
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label for="teamId" style="color: aliceblue; display: block; margin-bottom: 0.5rem;">
+                        Select Team
+                    </label>
 
-                    <label for="message" style="color: aliceblue;">
-                        Message to Student
+                    <select
+                        id="teamId"
+                        name="teamId"
+                        required
+                        style="width: 100%; padding: 0.75rem; background: #171824; color: #e0e0e0; border: 1px solid #292a36; border-radius: 6px; font-size: 1rem;"
+                    >
+                        <option value="">-- Select a team --</option>
+                        {{#each teams}}
+                            <option value="{{this.teamId}}">{{this.teamId}}{{#if this.teamName}} - {{this.teamName}}{{/if}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="head" style="color: aliceblue; display: block; margin-bottom: 0.5rem;">Heading:</label>
+                    <input type="text" id="head" name="head" placeholder="e.g. NEW PROJECT TASK" style="width: 100%; padding: 0.75rem; background: #171824; color: #e0e0e0; border: 1px solid #292a36; border-radius: 6px;">
+
+                    <label for="message" style="color: aliceblue; display: block; margin: 1rem 0 0.5rem;">
+                        Task / Message to Team
                     </label>
 
                     <textarea
                         id="message"
                         name="message"
                         rows="4"
-                        placeholder="Write your message..."
+                        placeholder="Describe the project task for this team..."
                         required
+                        style="width: 100%; padding: 0.75rem; background: #171824; color: #e0e0e0; border: 1px solid #292a36; border-radius: 6px; font-family: Arial, sans-serif;"
                     ></textarea>
 
                 </div>
-<label for="date">DeadLine</label>
-<input type="Date" name="date"> <br> <br>
-<label for="text">Difficulty</label>
-<input type="text" placeholder="intermediate" name="diff">
 
-                <div class="form-group">
+                <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
 
-                    <label for="projectLink" style="color: aliceblue;">
-                        Project Link
+                    <div style="flex: 1; min-width: 160px;">
+                        <label for="deadlineTime" style="color: aliceblue; display: block; margin-bottom: 0.5rem;">Deadline Time</label>
+                        <input type="time" id="deadlineTime" name="deadlineTime" placeholder="18:30" style="width: 100%; padding: 0.75rem; background: #171824; color: #e0e0e0; border: 1px solid #292a36; border-radius: 6px;">
+                    </div>
+
+                    <div style="flex: 1; min-width: 200px;">
+                        <label for="diff" style="color: aliceblue; display: block; margin-bottom: 0.5rem;">Difficulty</label>
+                        <input type="text" id="diff" placeholder="intermediate" name="diff" style="width: 100%; padding: 0.75rem; background: #171824; color: #e0e0e0; border: 1px solid #292a36; border-radius: 6px;">
+                    </div>
+
+                </div>
+
+                <!-- SHARE LINK -->
+
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+
+                    <label for="shareLink" style="color: aliceblue; display: block; margin-bottom: 0.5rem;">
+                        Share Link (optional)
                     </label>
 
                     <input
                         type="url"
-                        id="projectLink"
-                        name="projectLink"
-                        placeholder="https://github.com/username/project"
-                        required
+                        id="shareLink"
+                        name="shareLink"
+                        placeholder="https://example.com/project"
+                        style="width: 100%; padding: 0.75rem; background: #171824; color: #e0e0e0; border: 1px solid #292a36; border-radius: 6px;"
                     >
-
 
                 </div>
 
-
                 <button type="submit" class="submit-btn">
-                    Sent
+                    Send Task
                     <span>→</span>
                 </button>
 

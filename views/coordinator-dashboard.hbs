@@ -1,0 +1,184 @@
+<section class="dashboard-section">
+
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="dashboard-header dashboard-reveal">
+
+            <div>
+                <span class="dashboard-eyebrow">COORDINATOR PANEL</span>
+
+                <h1>
+                    Welcome,
+                    <span class="text-primary">{{coordinatorId}}</span>
+                </h1>
+
+                <p>
+                    Monitor and manage your assigned teams.
+                </p>
+            </div>
+
+            <div class="team-badge">
+                <span class="status-dot"></span>
+                Coordinator {{coordinatorNumber}}
+            </div>
+
+        </div>
+
+
+        <!-- COORDINATOR INFO -->
+        <div class="dashboard-card dashboard-reveal">
+
+            <div class="section-heading">
+                <div>
+                    <span class="section-number">01</span>
+                    <h2>Coordinator Information</h2>
+                </div>
+
+                <div>
+                    <a href="/coordinator/logout" class="btn btn-danger">
+                        <i class="bi bi-box-arrow-right"></i>
+                        Logout
+                    </a>
+                </div>
+            </div>
+
+            <div class="leader-grid">
+
+                <div class="info-box">
+                    <span>COORDINATOR ID</span>
+                    <h3>{{coordinatorId}}</h3>
+                    <p>Coordinator access</p>
+                </div>
+
+                <div class="info-box">
+                    <span>COORDINATOR NUMBER</span>
+                    <h3>#{{coordinatorNumber}}</h3>
+                    <p>Panel number</p>
+                </div>
+
+                <div class="info-box">
+                    <span>ASSIGNED TEAMS</span>
+                    <h3>{{teamCount}}</h3>
+                    <p>{{teamsRange}}</p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- TEAMS LIST -->
+        <div class="dashboard-card dashboard-reveal">
+
+            <div class="section-heading">
+                <div>
+                    <span class="section-number">02</span>
+                    <h2>Assigned Teams</h2>
+                </div>
+            </div>
+
+            {{#if teams}}
+                <div class="teams-table-container">
+                    <table class="teams-table">
+                        <thead>
+                            <tr>
+                                <th>Team ID</th>
+                                <th>Team Name</th>
+                                <th>Leader</th>
+                                <th>Status</th>
+                                <th>Submission Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each teams}}
+                            <tr>
+                                <td><strong>{{this.teamId}}</strong></td>
+                                <td>
+                                    {{#if this.teamName}}
+                                        {{this.teamName}}
+                                    {{else}}
+                                        <span style="color: #777986;">Not registered</span>
+                                    {{/if}}
+                                </td>
+                                <td>
+                                    {{#if this.leaderName}}
+                                        {{this.leaderName}}
+                                    {{else}}
+                                        <span style="color: #777986;">Not registered</span>
+                                    {{/if}}
+                                </td>
+                                <td>
+                                    {{#if this.active}}
+                                        <span class="badge bg-success">Active</span>
+                                    {{else}}
+                                        <span class="badge bg-secondary">Inactive</span>
+                                    {{/if}}
+                                </td>
+                                <td>
+                                    {{#if this.submissionStatus}}
+                                        {{#ifEquals this.submissionStatus "Submitted"}}
+                                            <span class="badge bg-info">Submitted</span>
+                                        {{else}}
+                                            <span class="badge bg-warning text-dark">Pending</span>
+                                        {{/ifEquals}}
+                                    {{else}}
+                                        <span class="badge bg-warning text-dark">Pending</span>
+                                    {{/if}}
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            {{else}}
+                <div class="alert alert-info">
+                    <p>No teams assigned to this coordinator yet.</p>
+                </div>
+            {{/if}}
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+    .teams-table-container {
+        overflow-x: auto;
+        margin-top: 1rem;
+    }
+
+    .teams-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #1a1a2e;
+        border: 1px solid #16213e;
+    }
+
+    .teams-table thead {
+        background: #0f3460;
+    }
+
+    .teams-table th {
+        padding: 1rem;
+        text-align: left;
+        color: #e0e0e0;
+        font-weight: 600;
+        border-bottom: 2px solid #16213e;
+    }
+
+    .teams-table td {
+        padding: 1rem;
+        color: #b0b0b0;
+        border-bottom: 1px solid #16213e;
+    }
+
+    .teams-table tbody tr:hover {
+        background: #16213e;
+    }
+
+    .teams-table strong {
+        color: #3f36e7;
+    }
+</style>

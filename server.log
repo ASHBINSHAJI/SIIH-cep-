@@ -1,0 +1,143 @@
+◇ injected env (7) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
+Trying to connect to local MongoDB...
+Trying to connect to local MongoDB...
+mongodb connected
+Database Connected
+mongodb connected
+Database ready. Starting server...
+Team login successful: SIIH2026@1 (returning)
+[0mPOST /login [36m302[0m 171.482 ms - 36[0m
+Dashboard loading for: SIIH2026@1
+DEBUG tasks found for SIIH2026@1 : 1
+Dashboard data loaded successfully
+[0mGET /teamdashboard [32m200[0m 251.164 ms - 13479[0m
+Dashboard loading for: SIIH2026@1
+DEBUG tasks found for SIIH2026@1 : 1
+Dashboard data loaded successfully
+[0mGET /teamdashboard [32m200[0m 252.268 ms - 13479[0m
+Team login successful: SIIH2026@2 (first login - registered)
+[0mPOST /login [36m302[0m 156.096 ms - 36[0m
+Dashboard loading for: SIIH2026@2
+DEBUG tasks found for SIIH2026@2 : 0
+Dashboard data loaded successfully
+[0mGET /teamdashboard [32m200[0m 251.551 ms - 9702[0m
+Dashboard loading for: SIIH2026@2
+DEBUG tasks found for SIIH2026@2 : 0
+Dashboard data loaded successfully
+[0mGET /teamdashboard [32m200[0m 504.672 ms - 9702[0m
+[0mPOST /submit-task [33m401[0m 3.771 ms - 6069[0m
+[0mPOST /submit-task [33m401[0m 2.346 ms - 6069[0m
+[0mGET /teamdashboard [36m302[0m 0.591 ms - 37[0m
+[0mGET /dashboardlogin [32m200[0m 2.772 ms - 5782[0m
+Team login successful: SIIH2026@1 (returning)
+[0mPOST /login [36m302[0m 148.128 ms - 36[0m
+Dashboard loading for: SIIH2026@1
+DEBUG tasks found for SIIH2026@1 : 1
+Dashboard data loaded successfully
+[0mGET /teamdashboard [32m200[0m 258.368 ms - 13479[0m
+Dashboard loading for: SIIH2026@1
+DEBUG tasks found for SIIH2026@1 : 1
+Dashboard data loaded successfully
+[0mGET /teamdashboard [32m200[0m 233.296 ms - 13479[0m
+[0mPOST /submit-task [36m302[0m 239.906 ms - 80[0m
+Dashboard loading for: SIIH2026@1
+DEBUG tasks found for SIIH2026@1 : 1
+Dashboard data loaded successfully
+[0mGET /teamdashboard?success=Response%20submitted%20successfully [32m200[0m 245.238 ms - 11899[0m
+[0mPOST /submit-task [36m302[0m 93.105 ms - 111[0m
+Dashboard loading for: SIIH2026@1
+DEBUG tasks found for SIIH2026@1 : 1
+Dashboard data loaded successfully
+[0mGET /teamdashboard?error=You%20have%20already%20submitted%20a%20response%20for%20this%20task. [32m200[0m 225.342 ms - 11915[0m
+Dashboard loading for: SIIH2026@1
+DEBUG tasks found for SIIH2026@1 : 1
+Dashboard data loaded successfully
+[0mGET /teamdashboard [32m200[0m 234.529 ms - 11631[0m
+[0mGET /dashboardlogin [36m304[0m 6.647 ms - -[0m
+[0mGET /stylesheets/style.css [36m304[0m 3.725 ms - -[0m
+[0mGET /javascripts/indexs.js [36m304[0m 4.618 ms - -[0m
+[0mGET /dashboardlogin [36m304[0m 4.454 ms - -[0m
+[0mGET /stylesheets/style.css [36m304[0m 1.048 ms - -[0m
+[0mGET /javascripts/indexs.js [36m304[0m 1.172 ms - -[0m
+[0mGET /dashboardlogin [36m304[0m 2.518 ms - -[0m
+[0mGET /stylesheets/style.css [36m304[0m 1.557 ms - -[0m
+[0mGET /javascripts/indexs.js [36m304[0m 1.429 ms - -[0m
+[0mGET /dashboardlogin [36m304[0m 2.546 ms - -[0m
+[0mGET /stylesheets/style.css [36m304[0m 0.930 ms - -[0m
+[0mGET /javascripts/indexs.js [36m304[0m 1.639 ms - -[0m
+[0mGET /dashboardlogin [36m304[0m 3.958 ms - -[0m
+[0mGET /stylesheets/style.css [36m304[0m 0.932 ms - -[0m
+[0mGET /javascripts/indexs.js [36m304[0m 1.269 ms - -[0m
+[0mPOST /login [32m200[0m 354.538 ms - 6089[0m
+[0mGET /stylesheets/style.css [36m304[0m 1.050 ms - -[0m
+[0mGET /javascripts/indexs.js [36m304[0m 1.155 ms - -[0m
+[0mPOST /login [32m200[0m 40.513 ms - 6089[0m
+[0mGET /stylesheets/style.css [36m304[0m 0.869 ms - -[0m
+[0mGET /javascripts/indexs.js [36m304[0m 0.891 ms - -[0m
+Team login successful: SIIH2026@3 (first login - registered)
+[0mPOST /login [36m302[0m 136.094 ms - 43[0m
+Dashboard loading for: SIIH2026@3
+DEBUG tasks found for SIIH2026@3 : 0
+Dashboard data loaded successfully
+[0mGET /teamdashboard [32m200[0m 480.566 ms - 9702[0m
+[0mGET /stylesheets/style.css [36m304[0m 0.754 ms - -[0m
+[0mGET /javascripts/indexs.js [36m304[0m 1.044 ms - -[0m
+[0mGET /admin [36m302[0m 0.955 ms - 40[0m
+[0mGET /adminlogin [32m200[0m 3.221 ms - 2327[0m
+[0mGET /stylesheets/style.css [36m304[0m 0.954 ms - -[0m
+[0mGET /javascripts/indexs.js [36m304[0m 1.219 ms - -[0m
+[0mGET /adminlogin [36m304[0m 3.528 ms - -[0m
+[0mGET /stylesheets/style.css [36m304[0m 1.624 ms - -[0m
+[0mGET /javascripts/indexs.js [36m304[0m 2.192 ms - -[0m
+[0mPOST /adminlogin [33m401[0m 2.373 ms - 2440[0m
+[0mGET /stylesheets/style.css [36m304[0m 1.225 ms - -[0m
+[0mGET /javascripts/indexs.js [36m304[0m 2.241 ms - -[0m
+[0mPOST /adminlogin [33m401[0m 3.082 ms - 2440[0m
+[0mGET /stylesheets/style.css [36m304[0m 1.065 ms - -[0m
+[0mGET /javascripts/indexs.js [36m304[0m 1.158 ms - -[0m
+[0mPOST /adminlogin [36m302[0m 0.837 ms - 35[0m
+[0mGET /admin [32m200[0m 519.585 ms - 260832[0m
+[0mGET /stylesheets/style.css [36m304[0m 1.060 ms - -[0m
+[0mGET /javascripts/indexs.js [36m304[0m 1.256 ms - -[0m
+[0mGET /task [32m200[0m 238.294 ms - 15724[0m
+[0mGET /stylesheets/style.css [36m304[0m 0.899 ms - -[0m
+[0mGET /javascripts/indexs.js [36m304[0m 0.908 ms - -[0m
+Task created for SIIH2026@3 with ID: new ObjectId('6a9d3d2fd1ec509ce73970ac')
+[0mPOST /Gave-task [36m302[0m 48.457 ms - 74[0m
+[0mGET /task?success=Task%20sent%20to%20SIIH2026%403 [32m200[0m 152.095 ms - 15976[0m
+[0mGET /stylesheets/style.css [36m304[0m 1.218 ms - -[0m
+[0mGET /javascripts/indexs.js [36m304[0m 1.697 ms - -[0m
+Dashboard loading for: SIIH2026@3
+DEBUG tasks found for SIIH2026@3 : 1
+Dashboard data loaded successfully
+[0mGET /teamdashboard [32m200[0m 290.519 ms - 13473[0m
+[0mGET /stylesheets/style.css [36m304[0m 0.835 ms - -[0m
+[0mGET /javascripts/indexs.js [36m304[0m 0.956 ms - -[0m
+[0mPOST /submit-task [36m302[0m 249.351 ms - 87[0m
+Dashboard loading for: SIIH2026@3
+DEBUG tasks found for SIIH2026@3 : 1
+Dashboard data loaded successfully
+[0mGET /teamdashboard?success=Response%20submitted%20successfully [32m200[0m 198.915 ms - 11893[0m
+[0mGET /stylesheets/style.css [36m304[0m 1.158 ms - -[0m
+[0mGET /javascripts/indexs.js [36m304[0m 1.362 ms - -[0m
+[0mGET /approvereject [33m404[0m 4.663 ms - 3221[0m
+[0mGET /stylesheets/style.css [36m304[0m 1.319 ms - -[0m
+[0mGET /javascripts/indexs.js [36m304[0m 2.063 ms - -[0m
+[0mGET /admin [32m200[0m 534.410 ms - 262782[0m
+[0mGET /javascripts/indexs.js [36m304[0m 0.690 ms - -[0m
+[0mGET /stylesheets/style.css [36m304[0m 1.685 ms - -[0m
+[0mGET /task [36m304[0m 242.671 ms - -[0m
+[0mGET /stylesheets/style.css [36m304[0m 3.913 ms - -[0m
+[0mGET /javascripts/indexs.js [36m304[0m 4.233 ms - -[0m
+Dashboard loading for: SIIH2026@3
+DEBUG tasks found for SIIH2026@3 : 1
+Dashboard data loaded successfully
+[0mGET /teamdashboard?success=Response%20submitted%20successfully [36m304[0m 206.184 ms - -[0m
+[0mGET /stylesheets/style.css [36m304[0m 0.806 ms - -[0m
+[0mGET /javascripts/indexs.js [36m304[0m 1.258 ms - -[0m
+Dashboard loading for: SIIH2026@3
+DEBUG tasks found for SIIH2026@3 : 1
+Dashboard data loaded successfully
+[0mGET /teamdashboard?success=Response%20submitted%20successfully [32m200[0m 294.479 ms - 11865[0m
+[0mGET /stylesheets/style.css [36m304[0m 1.131 ms - -[0m
+[0mGET /javascripts/indexs.js [36m304[0m 1.340 ms - -[0m

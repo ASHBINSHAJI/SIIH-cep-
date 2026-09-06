@@ -1,81 +1,343 @@
-<section class="admin-panel mx-3 mt-5">
+<section class="admin-panel">
 
-    <div class="container">
+    <div class="admin-container">
 
-        <!-- Admin Header -->
-        <div class="admin-header mb-4">
-            <h1>
-                Welcome, <span class="text-primary">Admin</span>
-            </h1>
-            <p class="text-secondary">
-                Manage registered teams and review submitted work.
-            </p>
+        <!-- =========================
+             ADMIN HEADER
+        ========================== -->
+        <div class="admin-topbar">
+
+            <div class="admin-title">
+
+                <div class="admin-badge">
+                    <i class="bi bi-shield-lock-fill"></i>
+                </div>
+
+                <div>
+                    <span class="admin-eyebrow">HACKATHON CONTROL CENTER</span>
+
+                    <h1>
+                        Admin <span>Dashboard</span>
+                    </h1>
+
+                    <p>
+                        Monitor teams, coordinators and project submissions.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="admin-status">
+                <span class="status-dot"></span>
+                System Online
+            </div>
+
         </div>
 
 
-        <!-- Registered Teams -->
-        <div class="admin-card mb-5">
+        <!-- =========================
+             STATISTICS
+        ========================== -->
+        <div class="admin-stats">
 
-            <div class="card-header-custom">
-                <div>
-                    <h2>Registered Teams</h2>
-                    <p>List of teams participating in the hackathon.</p>
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    <i class="bi bi-people-fill"></i>
                 </div>
 
-                <span class="team-count">
-                    {{teams.length}} Teams
-                </span>
+                <div class="stat-content">
+                    <span>Total Teams</span>
+                    <strong>{{teams.length}}</strong>
+                    <small>Registered teams</small>
+                </div>
+
             </div>
 
 
-            <div class="table-responsive">
+            <div class="stat-card">
 
-                <table class="table table-admin align-middle">
+                <div class="stat-icon">
+                    <i class="bi bi-person-check-fill"></i>
+                </div>
+
+                <div class="stat-content">
+                    <span>Coordinators</span>
+                    <strong>7</strong>
+                    <small>Active coordinators</small>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    <i class="bi bi-file-earmark-code-fill"></i>
+                </div>
+
+                <div class="stat-content">
+                    <span>Submissions</span>
+                    <strong>{{studwork.length}}</strong>
+                    <small>Projects submitted</small>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    <i class="bi bi-broadcast-pin"></i>
+                </div>
+
+                <div class="stat-content">
+                    <span>System</span>
+                    <strong>LIVE</strong>
+                    <small>Hackathon active</small>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             REGISTERED TEAMS
+        ========================== -->
+        <div class="admin-card">
+
+            <div class="card-header">
+
+                <div class="card-heading">
+
+                    <span class="section-tag">
+                        01 / TEAMS
+                    </span>
+
+                    <h2>
+                        Registered Teams
+                    </h2>
+
+                    <p>
+                        View and monitor all teams participating in the hackathon.
+                    </p>
+
+                </div>
+
+
+                <div class="card-actions">
+
+                    <div class="team-total">
+                        <strong>{{teams.length}}</strong>
+                        <span>Teams</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SEARCH -->
+            <div class="table-tools">
+
+                <div class="search-box">
+
+                    <i class="bi bi-search"></i>
+
+                    <input
+                        type="text"
+                        id="teamSearch"
+                        placeholder="Search team ID, team name or leader..."
+                        onkeyup="searchTeams()"
+                    >
+
+                </div>
+
+                <div class="filter-label">
+                    <i class="bi bi-funnel"></i>
+                    All Teams
+                </div>
+
+            </div>
+
+
+            <!-- TABLE -->
+            <div class="admin-table-wrapper">
+
+                <table class="admin-table" id="teamsTable">
 
                     <thead>
+
                         <tr>
-                            <th>No.</th>
-                            <th>Leader Name</th>
-                            <th>Leader Email</th>
-                            <th>Member Name</th>
-                            <th>Member Email</th>
+                            <th>#</th>
+                            <th>Team</th>
+                            <th>Team Name</th>
+                            <th>Team Leader</th>
+                            <th>Coordinator</th>
+                            <th>Status</th>
+                            <th>Action</th>
                         </tr>
+
                     </thead>
+
 
                     <tbody>
 
                         {{#each teams}}
 
                         <tr>
-                            <td>{{@index}}</td>
 
-                            <td>
-                                <strong>{{lName}}</strong>
+                            <td class="number-cell">
+                                {{@index}}
                             </td>
 
-                            <td>
-                                <a href="mailto:{{lEmail}}">
-                                    {{lEmail}}
-                                </a>
-                            </td>
 
                             <td>
-                                {{m1Name}}
+
+                                <div class="team-id">
+
+                                    <div class="team-avatar">
+                                        <i class="bi bi-people-fill"></i>
+                                    </div>
+
+                                    <div>
+                                        <strong>{{this.teamId}}</strong>
+                                        <small>Hackathon Team</small>
+                                    </div>
+
+                                </div>
+
                             </td>
 
+
                             <td>
-                                <a href="mailto:{{m1Email}}">
-                                    {{m1Email}}
-                                </a>
+
+                                {{#if this.teamName}}
+
+                                    <strong class="team-name">
+                                        {{this.teamName}}
+                                    </strong>
+
+                                {{else}}
+
+                                    <span class="not-registered">
+                                        Not registered
+                                    </span>
+
+                                {{/if}}
+
                             </td>
+
+
+                            <td>
+
+                                {{#if this.leaderName}}
+
+                                    <div class="leader-info">
+
+                                        <div class="leader-avatar">
+                                            {{this.leaderName}}
+                                        </div>
+
+                                        <strong>
+                                            {{this.leaderName}}
+                                        </strong>
+
+                                    </div>
+
+                                {{else}}
+
+                                    <span class="not-registered">
+                                        Not registered
+                                    </span>
+
+                                {{/if}}
+
+                            </td>
+
+
+                            <td>
+
+                                {{#if this.coordinatorNumber}}
+
+                                    <span class="coordinator-badge">
+                                        <i class="bi bi-person-badge"></i>
+                                        Coordinator {{this.coordinatorNumber}}
+                                    </span>
+
+                                {{else}}
+
+                                    <span class="not-assigned">
+                                        Unassigned
+                                    </span>
+
+                                {{/if}}
+
+                            </td>
+
+
+                            <td>
+
+                                {{#if this.active}}
+
+                                    <span class="active-status">
+                                        <span></span>
+                                        Active
+                                    </span>
+
+                                {{else}}
+
+                                    <span class="inactive-status">
+                                        Inactive
+                                    </span>
+
+                                {{/if}}
+
+                            </td>
+
+
+                            <td>
+
+                                <button
+                                    class="view-btn"
+                                    type="button"
+                                    onclick="viewTeam('{{this.teamId}}')"
+                                >
+                                    View
+                                    <i class="bi bi-arrow-up-right"></i>
+                                </button>
+
+                            </td>
+
                         </tr>
+
 
                         {{else}}
 
                         <tr>
-                            <td colspan="5" class="text-center py-4">
-                                No teams registered yet.
+
+                            <td colspan="7">
+
+                                <div class="empty-teams">
+
+                                    <div class="empty-icon">
+                                        <i class="bi bi-people"></i>
+                                    </div>
+
+                                    <h3>
+                                        No teams registered
+                                    </h3>
+
+                                    <p>
+                                        Registered teams will appear here.
+                                    </p>
+
+                                </div>
+
                             </td>
+
                         </tr>
 
                         {{/each}}
@@ -90,18 +352,42 @@
 
 
 
-        <!-- Student Submissions -->
-        <div class="admin-card">
+        <!-- =========================
+             PROJECT SUBMISSIONS
+        ========================== -->
+        <div class="admin-card submissions-card">
 
-            <div class="card-header-custom">
-                <div>
-                    <h2>Student Work</h2>
-                    <p>Review submitted projects from participating teams.</p>
+            <div class="card-header">
+
+                <div class="card-heading">
+
+                    <span class="section-tag">
+                        02 / SUBMISSIONS
+                    </span>
+
+                    <h2>
+                        Student Work
+                    </h2>
+
+                    <p>
+                        Review projects submitted by participating teams.
+                    </p>
+
                 </div>
 
-                <span class="team-count">
-                    {{studwork.length}} Submissions
-                </span>
+
+                <div class="submission-count">
+
+                    <strong>
+                        {{studwork.length}}
+                    </strong>
+
+                    <span>
+                        SUBMISSIONS
+                    </span>
+
+                </div>
+
             </div>
 
 
@@ -111,62 +397,87 @@
 
                 <div class="submission-item">
 
-                    <div class="submission-top">
+                    <div class="submission-main">
 
-                        <div>
-                            <span class="label">Team ID</span>
-                            <h3>{{this.teamid}}</h3>
+                        <div class="submission-icon">
+                            <i class="bi bi-code-square"></i>
                         </div>
 
-                        <div class="status">
-                            {{this.status}}
+
+                        <div class="submission-details">
+
+                            <span class="submission-label">
+                                TEAM
+                            </span>
+
+                            <h3>
+                                {{this.teamId}}{{#if this.teamName}} · {{this.teamName}}{{/if}}
+                            </h3>
+
+                            {{#if this.taskMessage}}
+                                <p style="color: #777986; margin: 0.25rem 0;">
+                                    <strong style="color: #999ba8;">Task:</strong> {{this.taskMessage}}
+                                </p>
+                            {{/if}}
+
+                            <p>
+                                <strong style="color: #999ba8;">Response:</strong> {{this.message}}
+                            </p>
+
                         </div>
 
                     </div>
 
 
-                    <div class="submission-message">
+                    <div class="submission-meta">
 
-                        <span class="label">Message</span>
-
-                        <p>
-                            {{this.message}}
-                        </p>
-
-                    </div>
-
-
-                    <div class="submission-footer">
-
-                        <div>
-                            <span class="label">Submitted At</span>
-                            <p>{{this.submittedAt}}</p>
+                        <div class="submission-status">
+                            <span></span>
+                            {{#if this.status}}{{this.status}}{{else}}submitted{{/if}}
                         </div>
 
-                        <div>
-                            <span class="label">Project</span>
+                        <div class="submission-date">
 
-                            <a
-                                href="{{this.projectLink}}"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="project-link"
-                            >
-                                View Project →
-                            </a>
+                            <i class="bi bi-clock"></i>
+
+                            {{dateFormat this.submittedAt "MMM DD, h:MM A"}}
+
                         </div>
+
+
+                        {{#if this.projectLink}}
+                        <a
+                            href="{{this.projectLink}}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="project-btn"
+                        >
+                            Open Project
+                            <i class="bi bi-arrow-up-right"></i>
+                        </a>
+                        {{/if}}
 
                     </div>
 
                 </div>
 
+
                 {{else}}
 
-                <div class="empty-state">
-                    <h3>No submissions yet</h3>
+                <div class="empty-submissions">
+
+                    <div class="empty-icon">
+                        <i class="bi bi-file-earmark-code"></i>
+                    </div>
+
+                    <h3>
+                        No submissions yet
+                    </h3>
+
                     <p>
-                        Student project submissions will appear here.
+                        Student project submissions will appear here once teams submit their work.
                     </p>
+
                 </div>
 
                 {{/each}}
@@ -175,7 +486,59 @@
 
         </div>
 
+
     </div>
 
 </section>
 
+
+
+<!-- =========================
+     TEAM SEARCH
+========================== -->
+
+<script>
+
+function searchTeams() {
+
+    const input =
+        document.getElementById("teamSearch");
+
+    const filter =
+        input.value.toLowerCase();
+
+    const table =
+        document.getElementById("teamsTable");
+
+    const rows =
+        table.getElementsByTagName("tbody")[0]
+        .getElementsByTagName("tr");
+
+
+    for (let i = 0; i < rows.length; i++) {
+
+        const text =
+            rows[i].textContent.toLowerCase();
+
+        if (text.includes(filter)) {
+
+            rows[i].style.display = "";
+
+        } else {
+
+            rows[i].style.display = "none";
+
+        }
+
+    }
+
+}
+
+
+function viewTeam(teamId) {
+
+    alert("Team: " + teamId);
+
+}
+
+</script>

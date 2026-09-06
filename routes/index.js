@@ -8,306 +8,312 @@ router.get('/', function(req, res, next) {
   res.render('index',{student:true});
 });
 router.get('/program',(req,res,next)=>{
-res.render('program',{student:true})
+  const facts = [
+    { value: '36', label: 'HOURS' },
+    { value: '01', label: 'NATIONAL EVENT' },
+    { value: '∞', label: 'POSSIBILITIES' },
+    { value: '01', label: 'MISSION' }
+  ];
+  res.render('program',{student:true, facts})
 })
 router.get('/login',(req,res,next)=>{
   res.render('Login',{student:true})
 })
 
-router.get('/status/:id',async(req,res,next)=>{
-  try {
-    const database=await db.get()
-    const {ObjectId}=require('mongodb')
-    const team =await database.collection(collection.TEAM_COLLECTIONS).findOne({_id: new ObjectId(req.params.id)});
-  res.json({status:team? team.status:'pending'});
-  } catch (err) {
-    console.log("status check error",err);
-    res.status(500).json({status:'error'})
-    
-  }
-})
-router.post('/team-confirmation',async(req,res,next)=>{
-
-  try{
-    console.log(req.body);
-const database= await db.get()
-const teamData = {...req.body,status:"pending"}
-await
-database.collection(collection.TEAM_COLLECTIONS).insertOne(teamData)
-res.send(`
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>SIIH | Application Submitted</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-
-            font-family: Arial, sans-serif;
-
-            background: #08090f;
-            color: white;
-        }
-
-        .card {
-            width: 100%;
-            max-width: 500px;
-
-            padding: 40px 30px;
-
-            text-align: center;
-
-            background: #11121a;
-            border: 1px solid #292a36;
-            border-radius: 24px;
-
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-        }
-
-        .logo {
-            font-size: 14px;
-            font-weight: bold;
-            letter-spacing: 3px;
-            color: #aaa;
-            margin-bottom: 35px;
-        }
-
-        .logo span {
-            color: #3f36e7;
-        }
-
-        .loader {
-            width: 65px;
-            height: 65px;
-
-            margin: 0 auto 25px;
-
-            border: 4px solid #292a36;
-            border-top: 4px solid #3f36e7;
-
-            border-radius: 50%;
-
-            animation: spin 1s linear infinite;
-        }
+// router.get('/status/:id',async(req,res,next)=>{
+//   try {
+//     const database=await db.get()
+//     const {ObjectId}=require('mongodb')
+//     const team =await database.collection(collection.TEAM_COLLECTIONS).findOne({_id: new ObjectId(req.params.id)});
+//   res.json({status:team? team.status:'pending'});
+//   } catch (err) {
+//     console.log("status check error",err);
+//     res.status(500).json({status:'error'})
+
+//   }
+// })
+// router.post('/team-confirmation',async(req,res,next)=>{
+
+//   try{
+//     console.log(req.body);
+// const database= await db.get()
+// const teamData = {...req.body,status:"pending"}
+// await
+// database.collection(collection.TEAM_COLLECTIONS).insertOne(teamData)
+// res.send(`
+// <!DOCTYPE html>
+// <html lang="en">
+// <head>
+//     <meta charset="UTF-8">
+//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+//     <title>SIIH | Application Submitted</title>
+
+//     <style>
+//         * {
+//             box-sizing: border-box;
+//         }
+
+//         body {
+//             margin: 0;
+//             min-height: 100vh;
+//             display: flex;
+//             align-items: center;
+//             justify-content: center;
+//             padding: 20px;
+
+//             font-family: Arial, sans-serif;
+
+//             background: #08090f;
+//             color: white;
+//         }
+
+//         .card {
+//             width: 100%;
+//             max-width: 500px;
+
+//             padding: 40px 30px;
+
+//             text-align: center;
+
+//             background: #11121a;
+//             border: 1px solid #292a36;
+//             border-radius: 24px;
+
+//             box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+//         }
+
+//         .logo {
+//             font-size: 14px;
+//             font-weight: bold;
+//             letter-spacing: 3px;
+//             color: #aaa;
+//             margin-bottom: 35px;
+//         }
+
+//         .logo span {
+//             color: #3f36e7;
+//         }
+
+//         .loader {
+//             width: 65px;
+//             height: 65px;
+
+//             margin: 0 auto 25px;
 
-        @keyframes spin {
-            100% {
-                transform: rotate(360deg);
-            }
-        }
+//             border: 4px solid #292a36;
+//             border-top: 4px solid #3f36e7;
 
-        h1 {
-            margin-bottom: 12px;
-            font-size: 30px;
-        }
+//             border-radius: 50%;
+
+//             animation: spin 1s linear infinite;
+//         }
 
-        p {
-            color: #999ba8;
-            line-height: 1.6;
-            font-size: 15px;
-        }
+//         @keyframes spin {
+//             100% {
+//                 transform: rotate(360deg);
+//             }
+//         }
 
-        .status {
-            margin-top: 30px;
+//         h1 {
+//             margin-bottom: 12px;
+//             font-size: 30px;
+//         }
 
-            padding: 15px;
+//         p {
+//             color: #999ba8;
+//             line-height: 1.6;
+//             font-size: 15px;
+//         }
 
-            background: #171824;
-            border: 1px solid #292a36;
+//         .status {
+//             margin-top: 30px;
 
-            border-radius: 14px;
+//             padding: 15px;
 
-            display: flex;
-            align-items: center;
-            gap: 12px;
+//             background: #171824;
+//             border: 1px solid #292a36;
 
-            text-align: left;
-        }
+//             border-radius: 14px;
 
-        .dot {
-            width: 10px;
-            height: 10px;
+//             display: flex;
+//             align-items: center;
+//             gap: 12px;
 
-            flex-shrink: 0;
+//             text-align: left;
+//         }
 
-            background: #3f36e7;
-            border-radius: 50%;
+//         .dot {
+//             width: 10px;
+//             height: 10px;
 
-            box-shadow: 0 0 12px #3f36e7;
+//             flex-shrink: 0;
 
-            animation: pulse 1.5s infinite;
-        }
+//             background: #3f36e7;
+//             border-radius: 50%;
 
-        @keyframes pulse {
-            50% {
-                opacity: 0.3;
-            }
-        }
+//             box-shadow: 0 0 12px #3f36e7;
 
-        .status strong {
-            display: block;
-            font-size: 14px;
-        }
+//             animation: pulse 1.5s infinite;
+//         }
 
-        .status small {
-            color: #777986;
-        }
+//         @keyframes pulse {
+//             50% {
+//                 opacity: 0.3;
+//             }
+//         }
 
-        .footer {
-            margin-top: 25px;
-            font-size: 12px;
-            color: #5f606b;
-        }
-    </style>
-</head>
+//         .status strong {
+//             display: block;
+//             font-size: 14px;
+//         }
 
-<body>
+//         .status small {
+//             color: #777986;
+//         }
 
-    <div class="card">
+//         .footer {
+//             margin-top: 25px;
+//             font-size: 12px;
+//             color: #5f606b;
+//         }
+//     </style>
+// </head>
 
-        <div class="logo">
-            SIIH <span>•</span> HACKATHON
-        </div>
+// <body>
 
-        <div class="loader"></div>
+//     <div class="card">
 
-        <h1>Application Under Review</h1>
+//         <div class="logo">
+//             SIIH <span>•</span> HACKATHON
+//         </div>
 
-        <p>
-            Your request has been successfully submitted.
-            Our admin team is reviewing your application.
-        </p>
+//         <div class="loader"></div>
 
-        <div class="status">
+//         <h1>Application Under Review</h1>
 
-            <div class="dot"></div>
+//         <p>
+//             Your request has been successfully submitted.
+//             Our admin team is reviewing your application.
+//         </p>
 
-            <div>
-                <strong>Waiting for approval</strong>
-                <small>This page updates automatically.</small>
-            </div>
+//         <div class="status">
 
-        </div>
+//             <div class="dot"></div>
 
-        <div class="footer">
-            Please keep this page open.
-        </div>
+//             <div>
+//                 <strong>Waiting for approval</strong>
+//                 <small>This page updates automatically.</small>
+//             </div>
 
-    </div>
+//         </div>
 
+//         <div class="footer">
+//             Please keep this page open.
+//         </div>
 
-    <script>
+//     </div>
 
-        const teamid = "${teamData._id}";
 
-        async function checkStatus() {
+//     <script>
 
-            try {
+//         const teamid = "${teamData._id}";
 
-                const response = await fetch("/status/" + teamid);
+//         async function checkStatus() {
 
-                const data = await response.json();
+//             try {
 
-                console.log("Current status:", data.status);
+//                 const response = await fetch("/status/" + teamid);
 
-                if (data.status === "approved") {
+//                 const data = await response.json();
 
-                    window.location.href = "/approved/" + teamid;
+//                 console.log("Current status:", data.status);
 
-                }
+//                 if (data.status === "approved") {
 
-                if (data.status === "rejected") {
+//                     window.location.href = "/approved/" + teamid;
 
-                    window.location.href = "/rejected";
+//                 }
 
-                }
+//                 if (data.status === "rejected") {
 
-            } catch (error) {
+//                     window.location.href = "/rejected";
 
-                console.error("Status check failed:", error);
+//                 }
 
-            }
+//             } catch (error) {
 
-        }
+//                 console.error("Status check failed:", error);
 
-        checkStatus();
+//             }
 
-        setInterval(checkStatus, 3000);
+//         }
 
-    </script>
+//         checkStatus();
 
-</body>
-</html>
-`);
-  }
-  catch(err){
-console.log("database",err);
-res.status(500).send('Reg failed')
-  }
-})
-router.get('/approved/:id',async(req,res,next)=>{
-try {
-  const{ObjectId}=require('mongodb')
-  console.log("approved setion started");
-  const database=await db.get()
-  const team=await database.collection(collection.TEAM_COLLECTIONS).findOne({
-    _id: new ObjectId(req.params.id),
-    status:"approved"
-  })
-  if(!team){
-    return  res.redirect('/team/conformation');
-  }
-  res.render('approved',{team,student:true});
-  console.log("approved passed to rewnder");
-  
-} catch (err) {
- console.log("approved error",err);
- res.status(500).send("error")
-}
-})
-router.get('/dashboardlogin',(req,res,next)=>{
-  res.render('studenter',{student:true})
-})
-router.post('/login',async(req,res,next)=>{
-  try {
-    const database=await db.get()
-    const team=await database.collection(collection.TEAM_COLLECTIONS).findOne({
-      teamid: req.body.teamid,
-      status:"approved"
-    });
-    if(!team){
-      return res.status(401).send("Invaild id")
+//         setInterval(checkStatus, 3000);
 
-    }
-    const  passwordMatch=await bcrypt.compare(
-      req.body.password,
-      team.password
-    );
-    if(!passwordMatch){
-      return res.status(401).send("invaild team id or pass")
-    }
-  req.session.teamid=team.teamid;
-  req.session.teamMongoid=team.id;
-  console.log(team.teamid);
-  
-  res.redirect('/teamview')
-  } catch (err) {
-    console.log(err);
-    res.status(500).send("login failed");
-    
-  }
-})
+//     </script>
+
+// </body>
+// </html>
+// `);
+//   }
+//   catch(err){
+// console.log("database",err);
+// res.status(500).send('Reg failed')
+//   }
+// })
+// // router.get('/approved/:id',async(req,res,next)=>{
+// // try {
+// //   const{ObjectId}=require('mongodb')
+// //   console.log("approved setion started");
+// //   const database=await db.get()
+// //   const team=await database.collection(collection.TEAM_COLLECTIONS).findOne({
+// //     _id: new ObjectId(req.params.id),
+// //     status:"approved"
+// //   })
+// //   if(!team){
+// //     return  res.redirect('/team/conformation');
+// //   }
+// //   res.render('approved',{team,student:true});
+// //   console.log("approved passed to rewnder");
+
+// // } catch (err) {
+// //  console.log("approved error",err);
+// //  res.status(500).send("error")
+// // }
+// // })
+// router.get('/dashboardlogin',(req,res,next)=>{
+//   res.render('studenter',{student:true})
+// })
+// router.post('/login',async(req,res,next)=>{
+//   try {
+//     const database=await db.get()
+//     const team=await database.collection(collection.TEAM_COLLECTIONS).findOne({
+//       teamid: req.body.teamid,
+//       status:"approved"
+//     });
+//     if(!team){
+//       return res.status(401).send("Invaild id")
+
+//     }
+//     const  passwordMatch=await bcrypt.compare(
+//       req.body.password,
+//       team.password
+//     );
+//     if(!passwordMatch){
+//       return res.status(401).send("invaild team id or pass")
+//     }
+//   req.session.teamid=team.teamid;
+//   req.session.teamMongoid=team.id;
+//   console.log(team.teamid);
+
+//   res.redirect('/teamview')
+//   } catch (err) {
+//     console.log(err);
+//     res.status(500).send("login failed");
+
+//   }
+// })
 module.exports = router;

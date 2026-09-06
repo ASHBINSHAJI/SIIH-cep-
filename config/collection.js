@@ -1,5 +1,9 @@
 module.exports={
     TEAM_COLLECTIONS:"teams",
+    COORDINATORS:"coordinators",
     SUBMIT_WORK:"studwork",
-    GAVE_TASK:"admtask"
-}
+    GAVE_TASK:"admtask",
+    TEAM_LOGIN_ACTIVITY:"teamLoginActivity",
+    MESSAGES:"messages",
+    PROJECT_SETTINGS:"projectSettings"
+}      

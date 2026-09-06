@@ -16,6 +16,27 @@ app.set('view options',{layout:'layout/layout'});
 app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname+'/views/partials');
 
+// Register handlebars helpers
+hbs.registerHelper('ifEquals', function(a, b, options) {
+  return a === b ? options.fn(this) : options.inverse(this);
+});
+
+hbs.registerHelper('dateFormat', function(date, format) {
+  if (!date) return '';
+  const d = new Date(date);
+  if (isNaN(d.getTime())) return date;
+
+  if (format === "MMM DD, h:MM A") {
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const month = months[d.getMonth()];
+    const day = String(d.getDate()).padStart(2, '0');
+    let hours = d.getHours() % 12 || 12;
+    const minutes = String(d.getMinutes()).padStart(2, '0');
+    const ampm = d.getHours() >= 12 ? 'PM' : 'AM';
+    return `${month} ${day}, ${hours}:${minutes} ${ampm}`;
+  }
+  return d.toString();
+});
 
 
 app.use(logger('dev'));
@@ -34,12 +55,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/',require('./routes/admin'))
+app.use('/',require('./routes/coordinator'))
 app.use('/',require('./routes/approvereject'))
 app.use('/',require('./routes/userdash'))
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -55,10 +80,10 @@ db.connect((err)=>{
   if(err){
     console.log("Database connection failed");
 process.exit(1);
-    
+
   }
   console.log("Database Connected");
-  
+
 })
 
 module.exports = app;

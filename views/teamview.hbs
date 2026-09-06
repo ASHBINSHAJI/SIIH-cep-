@@ -1,5 +1,5 @@
-<section class="dashboard-section">
-{{#each teams}}
+﻿﻿<section class="dashboard-section">
+{{#with team}}
     <div class="container">
 
         <!-- HEADER -->
@@ -10,7 +10,7 @@
 
                 <h1>
                     Welcome,
-                    <span class="text-primary">{{lName}}</span>
+                    <span class="text-primary">{{teamName}}</span>
                 </h1>
 
                 <p>
@@ -20,7 +20,7 @@
 
             <div class="team-badge">
                 <span class="status-dot"></span>
-                {{tName}}
+                {{leaderName}}
             </div>
 
         </div>
@@ -39,21 +39,27 @@
             <div class="leader-grid">
 
                 <div class="info-box">
-                    <span>TEAM LEADER</span>
-                    <h3>{{lName}}</h3>
-                    <p>Team Leader</p>
+                    <span>TEAM ID</span>
+                    <h3>{{teamId}}</h3>
+                    <p>Team identifier</p>
                 </div>
 
                 <div class="info-box">
-                    <span>EMAIL</span>
-                    <h3>{{lEmail}}</h3>
+                    <span>TEAM NAME</span>
+                    <h3>{{teamName}}</h3>
+                    <p>Project team</p>
+                </div>
+
+                <div class="info-box">
+                    <span>TEAM LEADER</span>
+                    <h3>{{leaderName}}</h3>
                     <p>Primary contact</p>
                 </div>
 
                 <div class="info-box">
-                    <span>TEAM ID</span>
-                    <h3>#TEAM-024</h3>
-                    <p>Registered team</p>
+                    <span>COORDINATOR</span>
+                    <h3>Coordinator {{coordinatorNumber}}</h3>
+                    <p>Assigned coordinator</p>
                 </div>
 
             </div>
@@ -61,234 +67,261 @@
         </div>
 
 
-        <!-- MEMBERS -->
+        <!-- HACKATHON INFORMATION -->
         <div class="dashboard-card dashboard-reveal">
 
             <div class="section-heading">
 
                 <div>
                     <span class="section-number">02</span>
-                    <h2>Team Members</h2>
-                </div>
-
-                <div class="slider-controls">
-
-                    <button id="prevBtn" class="slider-btn">
-                        &#10094;
-                    </button>
-
-                    <button id="nextBtn" class="slider-btn">
-                        &#10095;
-                    </button>
-
+                    <h2>Hackathon Status</h2>
                 </div>
 
             </div>
 
+            <div class="info-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
 
-            <div class="members-container">
-
-                <div class="members-slider" id="membersSlider">
-
-                    <div class="member-card">
-                        <div class="member-top">
-                            <span class="member-index">01</span>
-                            <span class="member-role">LEADER</span>
-                        </div>
-
-
-                        <h3>{{m1Name}}</h3>
-                        <p>{{m1Email}}</p>
-                    </div>
-
-
-                    <div class="member-card">
-                        <div class="member-top">
-                            <span class="member-index">02</span>
-                            <span class="member-role">MEMBER</span>
-                        </div>
-
-    
-                        <h3>{{m2Name}}</h3>
-                        <p>{{m2Email}}</p>
-                    </div>
-
-
-                    <div class="member-card">
-                        <div class="member-top">
-                            <span class="member-index">03</span>
-                            <span class="member-role">MEMBER</span>
-                        </div>
-
-
-                        <h3>{{mr3Name}}</h3>
-                        <p>{{m3Email}}</p>
-                    </div>
-
-
-                    <div class="member-card">
-                        <div class="member-top">
-                            <span class="member-index">04</span>
-                            <span class="member-role">MEMBER</span>
-                        </div>
-                        <h3>{{m4Name}}</h3>
-                        <p>{{m4Email}}</p>
-                    </div>
-                    {{/each}}
+                <div class="info-box">
+                    <span>SUBMISSION STATUS</span>
+                    {{#if ../projectSettings.submissionOpen}}
+                        <h3 style="color: #4caf50;">OPEN</h3>
+                        <p>Ready to submit</p>
+                    {{else}}
+                        <h3 style="color: #f44336;">CLOSED</h3>
+                        <p>No submissions allowed</p>
+                    {{/if}}
                 </div>
-            </div>
-            <div class="slider-progress">
-                <span id="sliderProgress"></span>
+
+                <div class="info-box">
+                    <span>CURRENT DEADLINE</span>
+                    {{#if ../projectSettings.currentDeadline}}
+                        <h3>{{dateFormat ../projectSettings.currentDeadline "MMM DD, h:MM A"}}</h3>
+                        <p>Task deadline</p>
+                    {{else}}
+                        <h3>-</h3>
+                        <p>No deadline set</p>
+                    {{/if}}
+                </div>
+
+                <div class="info-box">
+                    <span>ACTIVE TASKS</span>
+                    <h3>{{../tasks.length}}</h3>
+                    <p>Assigned to team</p>
+                </div>
+
+                <div class="info-box">
+                    <span>YOUR SUBMISSION</span>
+                    {{#if ../submissions.length}}
+                        <h3 style="color: #4caf50;">SUBMITTED</h3>
+                        <p>Last: {{dateFormat ../submissions.0.submittedAt "MMM DD, h:MM A"}}</p>
+                    {{else}}
+                        <h3 style="color: #ff9800;">PENDING</h3>
+                        <p>Not submitted yet</p>
+                    {{/if}}
+                </div>
+
             </div>
 
         </div>
 
 
-        <!-- ASSIGNED TASK -->
+        <!-- ASSIGNED TASKS -->
         <div class="dashboard-card task-card dashboard-reveal">
 
             <div class="section-heading">
 
                 <div>
                     <span class="section-number">03</span>
-                    <h2>Assigned Task</h2>
-                </div>
-
-                <span class="task-status">
-                    <span></span>
-                    Active
-                </span>
-
-            </div>
-
-{{#each admtask}}
-            <div class="task-content">
-
-                <div class="task-main">
-
-                    <span class="task-category">
-                        Create 
-                    </span>
-
-                    <h2>
-                       {{this.head}}
-                    </h2>
-
-                    <p>
-                        {{this.message}}
-                    </p>
-
-                </div>
-
-
-                <div class="task-details">
-
-                    <div>
-                        <span>DEADLINE</span>
-                        <strong>{{this.date}}</strong>
-                    </div>
-
-                    <div>
-                        <span>DIFFICULTY</span>
-                        <strong>{{this.diff}}</strong>
-                    </div>
-
-                    <div>
-                        <span>SUBMISSION</span>
-                        <strong>{{this.projectLink}}</strong>
-                    </div>
-
+                    <h2>Assigned Tasks</h2>
                 </div>
 
             </div>
-{{/each}}
 
-            <div class="task-footer">
-
-                <div>
-                    <span class="progress-label">
-                        Task Progress
-                    </span>
-
-                    <div class="progress-bar">
-                        <div class="progress-value"></div>
-                    </div>
+            {{#if ../success}}
+                <div class="alert alert-success" style="padding: 0.75rem 1rem; background: #003d00; border: 1px solid #4caf50; border-radius: 8px; color: #99ff99; margin-bottom: 1rem;">
+                    ✓ {{../success}}
                 </div>
+            {{/if}}
 
-                <strong class="progress-percent">
-                    35%
-                </strong>
+            {{#if ../error}}
+                <div class="alert alert-danger" style="padding: 0.75rem 1rem; background: #3d0000; border: 1px solid #f44336; border-radius: 8px; color: #ff9999; margin-bottom: 1rem;">
+                    {{../error}}
+                </div>
+            {{/if}}
 
-            </div>
+            {{#if ../tasks}}
+                {{#each ../tasks}}
+                    <div class="task-content" style="margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #16213e;">
+
+                        <div class="task-main">
+
+                            <span class="task-category">
+                                Task
+                            </span>
+
+                            <h2 style="color: #3f36e7;">
+                               {{this.head}}
+                            </h2>
+
+                            <p style="color: #999ba8; white-space: pre-line;">
+                                {{this.message}}
+                            </p>
+
+                        </div>
+
+                        <div class="task-details">
+
+                            {{#if this.deadlineTime}}
+                                <div>
+                                    <span>DEADLINE</span>
+                                    <strong style="color: #e0e0e0;">{{this.deadlineTime}}</strong>
+                                </div>
+                            {{/if}}
+
+                            {{#if this.diff}}
+                                <div>
+                                    <span>DIFFICULTY</span>
+                                    <strong style="color: #e0e0e0;">{{this.diff}}</strong>
+                                </div>
+                            {{/if}}
+
+                            {{#if this.shareLink}}
+                                <div>
+                                    <span>SHARED RESOURCE</span>
+                                    <a href="{{this.shareLink}}" target="_blank" rel="noopener noreferrer" style="color: #3f36e7;">
+                                        Open Link →
+                                    </a>
+                                </div>
+                            {{/if}}
+
+                            <div>
+                                <span>STATUS</span>
+                                {{#if this.submitted}}
+                                    <strong style="color: #4caf50;">✓ Submitted</strong>
+                                {{else}}
+                                    <strong style="color: #ff9800;">Pending</strong>
+                                {{/if}}
+                            </div>
+
+                        </div>
+
+                        <!-- RESPONSE FORM (per task) -->
+                        {{#if this.submitted}}
+                            <button disabled style="padding: 0.75rem 1.5rem; background: #171824; color: #4caf50; border: 1px solid #4caf50; border-radius: 6px; cursor: not-allowed;">
+                                ✓ Response Submitted
+                            </button>
+                        {{else if @root.projectSettings.submissionOpen}}
+                            <form action="/submit-task" method="POST" style="margin-top: 1rem;">
+
+                                <input type="hidden" name="taskId" value="{{this._id}}">
+
+                                <div class="form-group" style="margin-bottom: 1rem;">
+                                    <label style="color: aliceblue; display: block; margin-bottom: 0.4rem;">Your Response</label>
+                                    <textarea
+                                        name="message"
+                                        rows="4"
+                                        required
+                                        placeholder="Describe what you completed..."
+                                        style="width: 100%; max-width: 100%; padding: 0.75rem; background: #171824; color: #e0e0e0; border: 1px solid #292a36; border-radius: 6px; resize: vertical;"
+                                    ></textarea>
+                                </div>
+
+                                <div class="form-group" style="margin-bottom: 1rem;">
+                                    <label style="color: aliceblue; display: block; margin-bottom: 0.4rem;">Project Link</label>
+                                    <input
+                                        type="url"
+                                        name="projectLink"
+                                        placeholder="https://github.com/username/project"
+                                        required
+                                        style="width: 100%; max-width: 100%; padding: 0.75rem; background: #171824; color: #e0e0e0; border: 1px solid #292a36; border-radius: 6px;"
+                                    >
+                                </div>
+
+                                <button type="submit" class="submit-btn">
+                                    Submit Response
+                                    <span>→</span>
+                                </button>
+
+                            </form>
+                        {{else}}
+                            <div class="alert alert-warning" style="padding: 0.75rem 1rem; background: #3d2000; border: 1px solid #ff9800; border-radius: 8px; color: #ffcc99;">
+                                Project submission is closed by the admin.
+                            </div>
+                        {{/if}}
+
+                    </div>
+                {{/each}}
+            {{else}}
+                <div class="alert alert-info" style="color: #999ba8;">
+                    <p>No tasks assigned yet. Check back later!</p>
+                </div>
+            {{/if}}
 
         </div>
 
+        <!-- MESSAGES FROM ADMIN/COORDINATOR -->
+        {{#if ../messages}}
+            <div class="dashboard-card dashboard-reveal">
 
-        <!-- SUBMISSION -->
-        <div class="dashboard-card dashboard-reveal">
+                <div class="section-heading">
 
-            <div class="section-heading">
+                    <div>
+                        <span class="section-number">04a</span>
+                        <h2>Messages</h2>
+                    </div>
 
-                <div>
-                    <span class="section-number">04</span>
-                    <h2>Submit Your Work</h2>
+                </div>
+
+                <div style="max-height: 400px; overflow-y: auto;">
+                    {{#each ../messages}}
+                        <div style="padding: 1rem; margin-bottom: 1rem; background: #171824; border: 1px solid #292a36; border-radius: 8px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <strong style="color: #3f36e7;">{{this.senderName}}</strong>
+                                <small style="color: #777986;">{{dateFormat this.createdAt "MMM DD, h:MM A"}}</small>
+                            </div>
+                            <p style="color: #b0b0b0; margin: 0;">{{this.message}}</p>
+                        </div>
+                    {{/each}}
                 </div>
 
             </div>
-
-            <p class="submission-text">
-                Once your task is completed, send a short message
-                and your project link to the admin.
-            </p>
+        {{/if}}
 
 
-            <form action="/submit-task" method="POST">
+        <!-- SUBMISSION HISTORY -->
 
-                <div class="form-group">
+<div class="dashboard-card dashboard-reveal">
 
-                    <label for="message"style="color: aliceblue;">
-                        Message to Admin
-                    </label>
-
-                    <textarea
-                        id="message"
-                        name="message"
-                        rows="4"
-                        placeholder="Write your message..."
-                        required
-                    ></textarea>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="projectLink" style="color: aliceblue;">
-                        Project Link
-                    </label>
-
-                    <input
-                        type="url"
-                        id="projectLink"
-                        name="projectLink"
-                        placeholder="https://github.com/username/project"
-                        required
-                    >
-
-                </div>
-
-
-                <button type="submit" class="submit-btn">
-                    Submit Work
-                    <span>→</span>
-                </button>
-
-            </form>
-
+    <div class="section-heading">
+        <div>
+            <span class="section-number">05</span>
+            <h2>Submission History</h2>
         </div>
-
     </div>
-    <footer class="hack-footer " style="margin-bottom: -70px;">
+
+    {{#if ../submissions.length}}
+        {{#each submissions}}
+            <div style="padding: 1rem; margin-bottom: 1rem; background: #171824; border: 1px solid #292a36; border-radius: 8px;">
+                <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem;">
+                    <strong style="color: #4caf50;">✓ Submitted</strong>
+                    <small style="color: #777986;">{{dateFormat this.submittedAt "MMM DD, h:MM A"}}</small>
+                </div>
+                <p style="color: #b0b0b0; margin: 0 0 0.5rem; white-space: pre-line;">{{this.message}}</p>
+                {{#if this.projectLink}}
+                    <a href="{{this.projectLink}}" target="_blank" rel="noopener noreferrer" style="color: #3f36e7;">Open Project →</a>
+                {{/if}}
+            </div>
+        {{/each}}
+    {{else}}
+        <p style="color: #999ba8;">No submissions yet. Submit your response on a task above.</p>
+    {{/if}}
+
+</div>
+
+{{/with}}
+</section>
+
+<footer class="hack-footer">
 
     <!-- Animated background -->
     <div class="footer-grid"></div>
@@ -384,5 +417,3 @@
     </div>
 
 </footer>
-
-</section>

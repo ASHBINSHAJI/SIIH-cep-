@@ -1,0 +1,64 @@
+<section class="team-login-section">
+
+    <div class="team-login-card">
+
+        <div class="login-header">
+            <div class="login-icon">
+                <i class="bi bi-person-badge"></i>
+            </div>
+
+            <h1>Coordinator Login</h1>
+            <p>Enter your coordinator credentials to access the panel.</p>
+        </div>
+
+        {{#if error}}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error:</strong> {{error}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {{/if}}
+
+        <form action="/coordinator/login" method="POST">
+
+            <!-- Coordinator ID -->
+            <div class="form-group">
+                <label for="coordinatorId">Coordinator ID</label>
+
+                <input
+                   style="background-color: rgb(0, 0, 0);"
+                    type="text"
+                    id="coordinatorId"
+                    name="coordinatorId"
+                    placeholder="SIIH@CO-1"
+                    required
+                >
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+                <label for="password">Password</label>
+
+                <input
+                   style="background-color: rgb(0, 0, 0);"
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter password"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="login-btn">
+                <i class="bi bi-box-arrow-in-right"></i>
+                Access Coordinator Panel
+            </button>
+
+        </form>
+
+        <p class="login-note">
+            For coordinators only. Use your assigned credentials.
+        </p>
+
+    </div>
+
+</section>
