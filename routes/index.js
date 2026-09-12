@@ -17,7 +17,11 @@ router.get('/program',(req,res,next)=>{
   res.render('program',{student:true, facts})
 })
 router.get('/login',(req,res,next)=>{
-  res.render('Login',{student:true})
+  res.render('studenter',{student:true})
+})
+
+router.get('/team/login',(req,res,next)=>{
+  res.redirect('/dashboardlogin')
 })
 
 // router.get('/status/:id',async(req,res,next)=>{

@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -45,12 +47,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(session({
-  secret: 'cephackathon_secret_key',
+  secret: process.env.SESSION_SECRET || 'cephackathon_secret_key',
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: { maxAge: 1000 * 60 * 60 * 24 * 7 } // 1 week
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -76,14 +80,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-db.connect((err)=>{
-  if(err){
-    console.log("Database connection failed");
-process.exit(1);
-
-  }
-  console.log("Database Connected");
-
-})
 
 module.exports = app;

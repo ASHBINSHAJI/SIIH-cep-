@@ -63,6 +63,22 @@ router.post("/submit-task", async (req, res) => {
         encodeURIComponent('Task not found for your team.'));
     }
 
+    // Check if project submission is open
+    const projectSettings = await database.collection(collection.PROJECT_SETTINGS).findOne({});
+    if (projectSettings && !projectSettings.submissionOpen) {
+      return res.redirect('/teamdashboard?error=' +
+        encodeURIComponent('Project submission has been closed by the admin.'));
+    }
+
+    if (
+      projectSettings &&
+      projectSettings.currentDeadline &&
+      new Date(projectSettings.currentDeadline).getTime() < Date.now()
+    ) {
+      return res.redirect('/teamdashboard?error=' +
+        encodeURIComponent('The project submission deadline has passed.'));
+    }
+
     // BLOCK DUPLICATE SUBMISSIONS (backend-enforced, not just HTML disabled)
     const existing = await database.collection(collection.SUBMIT_WORK).findOne({
       taskId: taskId,
@@ -72,13 +88,6 @@ router.post("/submit-task", async (req, res) => {
     if (existing) {
       return res.redirect('/teamdashboard?error=' +
         encodeURIComponent('You have already submitted a response for this task.'));
-    }
-
-    // Check if project submission is open
-    const projectSettings = await database.collection(collection.PROJECT_SETTINGS).findOne({});
-    if (projectSettings && !projectSettings.submissionOpen) {
-      return res.redirect('/teamdashboard?error=' +
-        encodeURIComponent('Project submission has been closed by the admin.'));
     }
 
     // Record submission linked to the exact task

@@ -1,3 +1,6 @@
+const dns =require('dns')
+dns.setServers(["8.8.8.8","1.1.1.1"])
+
 const { MongoClient } = require("mongodb");
 require("dotenv").config();
 
@@ -6,32 +9,29 @@ const state = {
 };
 
 
-const atlasUri = process.env.MONGODB_ATLAS_URI;
-const localUri = process.env.MONGODB_URI;
+const mongoUri = process.env.MONGODB_URI;
 
 module.exports.connect = function(done) {
-  const url = process.env.MONGODB_URI || localUri;
-  const dbName = process.env.DB_NAME || "cep";
+    const dbName = process.env.DB_NAME || "cep";
 
-  if (!url) {
-    console.log("MongoDB URI is missing");
-    return done(new Error("MongoDB URI is missing"));
-  }
+    if (!mongoUri) {
+        console.log("MongoDB URI is missing");
+        return done(new Error("MongoDB URI is missing"));
+    }
 
-  console.log("Trying to connect to local MongoDB...");
+    console.log("Trying to connect to MongoDB Atlas...");
 
-  MongoClient.connect(url)
-    .then((client) => {
-      console.log("mongodb connected");
-      state.db = client.db(dbName);
-      done();
-    })
-    .catch((err) => {
-      console.log("mongo Connection err", err);
-      done(err);
-    });
+    MongoClient.connect(mongoUri)
+        .then((client) => {
+            console.log("mongodb connected");
+            state.db = client.db(dbName);
+            done();
+        })
+        .catch((err) => {
+            console.log("mongo Connection err", err);
+            done(err);
+        });
 };
-
 module.exports.get = function() {
   return state.db;
 };

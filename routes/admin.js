@@ -24,7 +24,10 @@ router.get("/adminlogin", (req, res, next) => {
 
 router.post("/adminlogin", (req, res, next) => {
   const { username, password } = req.body;
-  if (username === "CEPSSIIH2026" && password === "cepadmin") {
+  const adminUsername = process.env.ADMIN_USERNAME || "CEPSSIIH2026";
+  const adminPassword = process.env.ADMIN_PASSWORD || "cepadmin";
+
+  if (username === adminUsername && password === adminPassword) {
     req.session.admin = true;
     return res.redirect("/admin");
   }
@@ -42,8 +45,11 @@ router.get("/adminlogout", (req, res, next) => {
     return res.redirect("/adminlogin");
   });
 });
-router.get('/bugrepo',(req,res)=>{
-   return res.render('bugrepo',{admin:true})
+router.get('/bugrepo', requireAdmin, (req,res)=>{
+   return res.status(404).render('error', {
+    message: 'Bug report page is not available.',
+    admin: true
+   })
 })
 
 router.get("/admin", requireAdmin, async (req, res, next) => {
@@ -57,6 +63,10 @@ router.get("/admin", requireAdmin, async (req, res, next) => {
       .collection(collection.TEAM_COLLECTIONS)
       .find()
       .toArray();
+
+    const coordinatorCount = await database
+      .collection(collection.COORDINATORS)
+      .countDocuments({ active: true });
 
     const studwork = await database
       .collection(collection.SUBMIT_WORK)
@@ -98,7 +108,12 @@ router.get("/admin", requireAdmin, async (req, res, next) => {
     };
     teams.sort((a, b) => teamNumber(a) - teamNumber(b));
 
-    res.render("admin", { teams: teams || [], studwork: enrichedSubmissions || [], admin: true });
+    res.render("admin", {
+      teams: teams || [],
+      studwork: enrichedSubmissions || [],
+      coordinatorCount,
+      admin: true
+    });
   } catch (err) {
     console.error("Admin dashboard error:", err);
     res.status(500).render("error", { message: "Failed to load admin dashboard", admin: true });
@@ -141,6 +156,18 @@ router.post("/Gave-task", requireAdmin, async (req, res, next) => {
     if (!teamId || !message) {
       return res.status(400).render("Task", {
         error: "Team and message are required",
+        admin: true
+      });
+    }
+
+    const team = await database.collection(collection.TEAM_COLLECTIONS).findOne({
+      teamId,
+      active: true
+    });
+
+    if (!team) {
+      return res.status(400).render("Task", {
+        error: "Selected team was not found or is inactive",
         admin: true
       });
     }
@@ -257,6 +284,15 @@ router.post("/admin/send-message", requireAdmin, async (req, res, next) => {
     }
 
     const database = db.get();
+    const team = await database.collection(collection.TEAM_COLLECTIONS).findOne({
+      teamId,
+      active: true
+    });
+
+    if (!team) {
+      return res.status(400).send("Selected team was not found or is inactive");
+    }
+
     await database.collection(collection.MESSAGES).insertOne({
       teamId: teamId,
       message: message,
@@ -321,6 +357,11 @@ router.post("/admin/task/extend-deadline", requireAdmin, async (req, res, next) 
     const database = db.get();
     const { ObjectId } = require("mongodb");
 
+    const minutesToAdd = Number(minutes);
+    if (!Number.isFinite(minutesToAdd) || minutesToAdd <= 0) {
+      return res.status(400).json({ error: "Minutes must be a positive number" });
+    }
+
     const task = await database.collection(collection.GAVE_TASK).findOne({
       _id: new ObjectId(taskId)
     });
@@ -330,7 +371,7 @@ router.post("/admin/task/extend-deadline", requireAdmin, async (req, res, next) 
     }
 
     const currentDeadline = task.deadline ? new Date(task.deadline) : new Date();
-    const newDeadline = new Date(currentDeadline.getTime() + minutes * 60000);
+    const newDeadline = new Date(currentDeadline.getTime() + minutesToAdd * 60000);
 
     await database.collection(collection.GAVE_TASK).updateOne(
       { _id: new ObjectId(taskId) },

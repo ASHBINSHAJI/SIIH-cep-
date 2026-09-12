@@ -196,6 +196,11 @@ router.get('/coordinator/message', requireCoordinator, async (req, res, next) =>
 router.post('/coordinator/send-message', requireCoordinator, async (req, res, next) => {
   try {
     const { teamId, message } = req.body;
+
+    if (!teamId || !message) {
+      return res.status(400).send("Team ID and message are required");
+    }
+
     const database = db.get();
     const coordinatorNumber = req.session.coordinatorNumber;
     const teamRange = getCoordinatorTeamRange(coordinatorNumber);
@@ -215,8 +220,14 @@ router.post('/coordinator/send-message', requireCoordinator, async (req, res, ne
       return res.status(403).send("You have no teams assigned");
     }
 
-    if (!teamId || !message) {
-      return res.status(400).send("Team ID and message are required");
+    const team = await database.collection(collection.TEAM_COLLECTIONS).findOne({
+      teamId,
+      coordinatorNumber,
+      active: true
+    });
+
+    if (!team) {
+      return res.status(403).send("This team is not assigned to your coordinator panel");
     }
 
     await database.collection(collection.MESSAGES).insertOne({
