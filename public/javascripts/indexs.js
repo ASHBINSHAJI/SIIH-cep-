@@ -12,12 +12,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 26 September 2026 - 9:00 AM
     const targetDate = new Date(
-        2026,
-        8,
-        18,
+        2027,
+        9,
+        28,
         2,
-        0,
-        0
+        10,
+        11
     ).getTime();
 
 
